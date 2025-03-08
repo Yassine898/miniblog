@@ -38,4 +38,9 @@ class PostController extends Controller
         ]);
         return redirect()->route('post.show',$post->id);
     }
+    public function search(){
+        $searchTerm = request('searchterm');
+        $filtredPosts = Post::where('title','LIKE',"{$searchTerm}%")->get();
+        return view('index',['posts'=>$filtredPosts]);
+    }
 }

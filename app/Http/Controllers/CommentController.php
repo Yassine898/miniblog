@@ -13,5 +13,9 @@ class CommentController extends Controller
         $post->comments()->create(['content'=>request('content')]);
         return back();
     }
-    
+    public function destroy(Comment $comment){
+        $comment->delete();
+        return back();
+    }
 }
+ 

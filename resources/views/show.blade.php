@@ -27,14 +27,23 @@
             <h4 class="text-success">Comments ({{ $post->comments->count() }})</h4>
             <ul class="list-group">
                 @foreach ($post->comments as $comment)
-                    <li class="list-group-item">
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="flex-grow-1 bg-light p-2">
                         <p class="mb-1">{{ $comment->content }}</p>
                         <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
-                    </li>
+                    </div>
+                    <div>
+                        <form action="/posts/{{ $comment->id }}/comment/delete" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm ('are you sure?')">Delete</button>
+                        </form>
+                    </div>
+                </li>
                 @endforeach
+
             </ul>
         </div>
-
         <!-- Comment Form -->
         <div class="mt-4">
             <h5 class="text-primary">Add a Comment:</h5>
