@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Client\Request as ClientRequest;
 
 class PostController extends Controller
 {
@@ -13,5 +14,12 @@ class PostController extends Controller
 
     public function show(Post $post){
         return view('show',compact('post'));
+    }
+    public function form(){
+        return view('form');
+    }
+    public function store(){
+         Post::create(['title'=>request('title'),'content'=>request('content')]);
+         return back();
     }
 }
