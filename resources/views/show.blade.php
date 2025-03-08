@@ -11,6 +11,7 @@
     <nav class="navbar navbar-dark bg-primary p-3">
         <div class="container">
             <a href="/posts" class="navbar-brand">See All Posts</a>
+            <a href="/posts/{{ $post->id }}/edit" class="navbar-brand">Update</a>
         </div>
     </nav>
 

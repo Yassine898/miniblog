@@ -8,27 +8,36 @@
 
 <body class="bg-light">
     <div class="container mt-4">
-    <nav class="navbar navbar-dark bg-primary p-3">
-        <div class="container">
-            <a href="/posts" class="navbar-brand">See All Posts</a>
-            <a href="{{ route('post.form') }}" class="navbar-brand">Add Post</a>
-        </div>
-    </nav>
+        <nav class="navbar navbar-dark bg-primary p-3">
+            <div class="container">
+                <a href="/posts" class="navbar-brand">See All Posts</a>
+                <a href="{{ route('post.form') }}" class="navbar-brand">Add Post</a>
+            </div>
+        </nav>
         <!-- Posts Heading -->
         <h1 class="text-primary mb-4">Posts ({{ $posts->count() }})</h1>
 
         <!-- Loop through Posts -->
         <div class="row">
             @foreach ($posts as $post)
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card shadow-sm border-primary">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary">{{ $post->title }}</h5>
-                            <p class="card-text text-secondary">{{ Str::limit($post->content, 50) }}</p>
-                            <a href="/posts/post/{{$post->id}}" class="btn btn-outline-primary btn-sm">See Details</a>
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card shadow-sm border-primary">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ $post->title }}</h5>
+                        <p class="card-text text-secondary">{{ Str::limit($post->content, 50) }}</p>
+                        <div class="row">
+                            <div class="col-6"> <a href="/posts/post/{{$post->id}}" class="btn btn-outline-primary btn-sm ">See Details</a></div>
+                       <div class="col-6">
+                         <form action="/posts/{{ $post->id }}/delete" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                       </div>
                         </div>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>

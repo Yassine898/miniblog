@@ -22,4 +22,20 @@ class PostController extends Controller
          Post::create(['title'=>request('title'),'content'=>request('content')]);
          return back();
     }
+
+    public function destroy(Post $post) {
+        $post->delete(); // Deletes the post from the database
+        return back();
+    }
+
+    public function editform(Post $post){
+        return view('edit',compact('post'));
+    }
+    public function update(Post $post){
+        $post->update([
+            'title'=>request('title'),
+            'content'=>request('content')
+        ]);
+        return redirect()->route('post.show',$post->id);
+    }
 }
